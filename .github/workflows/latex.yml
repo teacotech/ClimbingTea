@@ -23,7 +23,7 @@ jobs:
         # Ini akan menginstal TeX Live, distribusi LaTeX yang dibutuhkan untuk kompilasi
 
       - name: Compile LaTeX file to PDF
-        run: pdflatex docs/main.tex  # Sesuaikan dengan nama file LaTeX utama Anda
+        run: pdflatex main.tex  # Sesuaikan dengan nama file LaTeX utama Anda
         
       - name: List files
         run: ls -l  # Akan menampilkan file yang ada di dalam direktori
