@@ -37,7 +37,7 @@
 \frontmatter
 \maketitle
 \begin{dedication}
-Dedicated to Mapala Panjat Tebing 
+	Dedicated to Mapala Panjat Tebing 
 \end{dedication}
 \tableofcontents
 \listoffigures
@@ -46,7 +46,63 @@ Dedicated to Mapala Panjat Tebing
 \mainmatter
 \chapter*{Preface}
 
-\section*{Un-numbered sample section}
+\section*{Proses Instalasi}
+\subsection*{Alat yang Dibutuhkan}
+\begin{itemize}
+	\item \textbf{Kamera} dengan resolusi maupun frame rate yang cukup tinggi (60 fps) untuk menangkap gerakan cepat.
+	\item \textbf{Komputer} dengan GPU yang memadai untuk memproses model \textit{Deep Learning}.
+	\item Perangkat Lunak dan Pustaka:
+	\begin{enumerate}
+		\item \textbf{Python};
+		\item \textbf{OpenCV} untuk pemrosesan gambar;
+		\item \textbf{PyTorch} atau \textbf{TensorFlow} untuk model \textit{Depth Estimation};
+		\item \textbf{MiDaS} (Model \textit{Monocular Depth Estimation} dari \textit{\textbf{Intel}}).
+	\end{enumerate}
+\end{itemize}
+\subsection*{Instalasi Perangkat Lunak}
+Beberapa \textbf{dependency} atau \textbf{library} dalam konteks pengembangan perangkat lunak, paket-paket berikut ditujukan untuk menyediakan fungsi dan utilitas tertentu yang digunakan dalam pengolahan gambar, komputasi numerik, dan pengembangan model \textit{Machine Learning}:
+\begin{enumerate}
+	\item \textbf{Opecv-python}
+	\begin{itemize}
+		\item Nama Paket: opencv-python
+		\item Tujuan:
+			\begin{enumerate}
+				\item \textbf{opencv-python} adalah pembungkus (wrapper) Python untuk \textbf{OpenCV}, yaitu pustaka yang sangat populer untuk pengolahan gambar dan visi komputer.
+				\item Dengan OpenCV, dapat dilakukan berbagai operasi pengolahan gambar seperti pembacaan dan penulisan gambar, deteksi objek, transformasi gambar, pemrosesan video, dan banyak lagi.
+				\item Contoh penggunaan: Membaca gambar, mendeteksi wajah dalam gambar, mengubah ukuran gambar, dll.
+			\end{enumerate}
+	\end{itemize}
+	\item \textbf{torch}
+	\begin{itemize}
+		\item Nama Paket: \textbf{torch}
+		\item Tujuan: 
+		\begin{enumerate}
+			\item \textbf{torch} adalah pustaka utama dari \textbf{PyTorch}, yang digunakan untuk komputasi numerik, khususnya dalam konteks \textit{Deep Learning}.
+			\item Pytorch menyediakan tensor multidimensi (mirip dengan array di NumPy) dan alat untuk membangun dan melatih model \textit{machine learning}, termasuk model \textit{neural network}.
+			\item Pytorch juga digunakan dalam penelitian AI, analisis data, dan aplikasi lain yang melibatkan \textit{machine learning}.
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{torchvision}
+	\begin{itemize}
+		\item Nama Paket: \textbf{torchvision}
+		\item Tujuan:
+		\begin{enumerate}
+			\item \textbf{torchvision} adalah pustaka yang terkait dengan PyTorch dan menyediakan fungsionalitas untuk pengolahan gambar dan visi komputer dalam konteks \textit{machine learning}.
+			\item Ini mencakup dataset standar (misalnya, \textbf{CIFAR-10}, \textbf{ImageNet}), model yang telah dilatih sebelumnya (misalnya \textbf{ResNet}, \textbf{VGG}), serta alat untuk mentransformasikan gambar (misalnya, \textbf{resize}, \textbf{normalize}).
+			\item Sangat berguna ketika bekerja dengan model-model visi komputer dalam \textbf{PyTorch}.
+		\end{enumerate}
+	\end{itemize}
+	\item \textbf{numpy}
+	\begin{itemize}
+		\item Nama Paket: \textbf{numpy}
+		\item Tujuan:
+		\begin{enumerate}
+			\item \textbf{numpy} adalah pustaka fundamental untuk komputasi numerik di Python.
+			\item Ini menyediakan struktur data \textbf{array} multidimensi yang efisien, serta banyak fungsi untuk operasi matematika seperti statistik, aljabar linear, dan manipulasi array.
+			\item \textbf{numpy} sering digunakan dalam komputasi ilmiah dan analisis data, dan menjadi dasar untuk banyak pustaka ilmiah lainnya, termasuk \textbf{PyTorch}.
+		\end{enumerate}
+	\end{itemize}
+\end{enumerate}
 
 \section*{Another sample section}
 
