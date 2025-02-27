@@ -1,0 +1,28 @@
+name: Compile LaTeX
+
+on:
+  push:
+    branches:
+      - main  # Atau cabang yang Anda gunakan
+  pull_request:
+    branches:
+      - main  # Atau cabang yang Anda gunakan
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup TeX Live
+        run: sudo apt-get install -y texlive texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
+
+      - name: Compile LaTeX document
+        run: pdflatex main.tex  # Sesuaikan dengan file utama Anda
+
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-pdf
+          path: main.pdf  # Sesuaikan dengan nama file PDF hasil kompilasi
