@@ -1,0 +1,32 @@
+name: Compile LaTeX Document
+
+on:
+  push:
+    branches:
+      - main   # Anda bisa memilih cabang lain jika diperlukan
+  pull_request:
+    branches:
+      - main   # Akan memicu kompilasi saat ada pull request
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest  # Menjalankan di lingkungan Ubuntu terbaru
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Memastikan kode repositori di-checkout ke dalam runner
+
+      - name: Set up TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
+        # Ini akan menginstal TeX Live, distribusi LaTeX yang dibutuhkan untuk kompilasi
+
+      - name: Compile LaTeX file to PDF
+        run: pdflatex main.tex  # Sesuaikan dengan nama file LaTeX utama Anda
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v2  # Upload PDF hasil kompilasi
+        with:
+          name: output-pdf  # Nama untuk file yang di-upload
+          path: main.pdf    # Sesuaikan dengan nama file PDF hasil kompilasi Anda
