@@ -29,7 +29,7 @@ jobs:
         run: ls -l  # Akan menampilkan file yang ada di dalam direktori
 
       - name: Upload PDF artifact
-        uses: actions/upload-artifact@v2  # Upload PDF hasil kompilasi
+        uses: actions/upload-artifact@v4.6.1  # Upload PDF hasil kompilasi
         with:
           name: main.pdf  # Nama untuk file yang di-upload
           path: docs/main.pdf    # Sesuaikan dengan nama file PDF hasil kompilasi Anda
