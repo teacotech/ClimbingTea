@@ -41,5 +41,5 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git pull origin main --rebase
           git add docs/main.pdf
-          git commit -m "Update compiled PDF"
+          git commit -s -m "Update compiled PDF"
           git push
