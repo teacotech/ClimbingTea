@@ -1,0 +1,14 @@
+name: 'Upload Artifact'
+description: 'Upload artifacts to GitHub'
+runs:
+  using: "composite"
+  steps:
+    - run: cp ${{ inputs.path }} /tmp/artifact/
+      shell: bash
+inputs:
+  name:
+    description: 'Artifact name'
+    required: true
+  path:
+    description: 'Path to file'
+    required: true
