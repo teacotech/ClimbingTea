@@ -1,0 +1,7 @@
+name : "Local Checkout"
+description: "Check out repository content"
+runs:
+  using: "composite"
+  steps:
+    - run: git clone https://github.com/${{ github.repository }} .
+      shell: bash
