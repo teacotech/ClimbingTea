@@ -1,14 +1,17 @@
-name: 'Upload Artifact'
-description: 'Upload artifacts to GitHub'
+name: "Local Upload Artifact"
+description: "Upload artifact manually"
+inputs:
+  name:
+    description: "Name of the artifact"
+    required: true
+  path:
+    description: "Path to artifact"
+    required: true
 runs:
   using: "composite"
   steps:
-    - run: cp ${{ inputs.path }} /tmp/artifact/
+    - run: |
+        mkdir -p artifacts
+        cp -r ${{ inputs.path }} artifacts/${{ inputs.name }}
       shell: bash
-inputs:
-  name:
-    description: 'Artifact name'
-    required: true
-  path:
-    description: 'Path to file'
-    required: true
+
