@@ -3,5 +3,9 @@ description: "Check out repository content"
 runs:
   using: "composite"
   steps:
-    - run: git clone https://github.com/${{ github.repository }} .
+    - run: |
+        git init
+        git remote add origin https://github.com/${{ github.repository }}
+        git fetch origin
+        git reset --hard origin/${{ github.ref_name }}
       shell: bash
