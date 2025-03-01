@@ -14,6 +14,9 @@ jobs:
 
     steps:
       - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Checkout repository (Local)
         uses: ./.github/actions/checkout  # Memastikan kode repositori di-checkout ke dalam runner
 
       - name: Set up TeX Live
