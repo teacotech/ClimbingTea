@@ -55,6 +55,8 @@ jobs:
       
       - name: Check if PDF changed
         run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git diff --quiet || (git add docs/main.pdf && git commit -s -m "Update compiled PDF" && git push)
       
       - name: Push changes
