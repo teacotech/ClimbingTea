@@ -2,6 +2,9 @@ name: Compile LaTeX Document
 
 on:
   push:
+    paths:
+      - '**.tex'
+  workflow_dispatch:
     branches:
       - main   # Anda bisa memilih cabang lain jika diperlukan
   pull_request:
@@ -18,6 +21,14 @@ jobs:
 
       - name: Checkout repository (Local)
         uses: ./.github/actions/checkout  # Memastikan kode repositori di-checkout ke dalam runner
+      
+      - name: Cache TeX Live
+        uses: actions/cache@3.4.3
+        with:
+          path: /usr/local/texlive
+          key: texlive-${{ runner.os }}-2023
+          restore-keys: |
+            texlive-${{ runner.os }}-
 
       - name: Set up TeX Live
         run: |
