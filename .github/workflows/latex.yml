@@ -27,19 +27,26 @@ jobs:
         
       - name: List files
         run: ls -l  # Akan menampilkan file yang ada di dalam direktori
-
+      
+      - name: Create docs directory
+        run: mkdir -p docs
+        
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4.6.1  # Upload PDF hasil kompilasi
         with:
           name: output-pdf  # Nama untuk file yang di-upload
           path: docs/main.pdf    # Sesuaikan dengan nama file PDF hasil kompilasi Anda
+      - name: Check if PDF changed
+        run: |
+          git diff --quiet || (git add docs/main.pdf && git commit -s -m "Update compiled PDF" && git push)
       
-      - name: Move PDF to Main Branch
-        if: github.ref == 'refs/heads/main' # Hanya berjalan jika workflow berjalan di branch 'main'
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Hanya berjalan jika workflow berjalan di branch 'main'
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git pull origin main --rebase
           git add docs/main.pdf
           git commit -s -m "Update compiled PDF"
-          git push
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git main
