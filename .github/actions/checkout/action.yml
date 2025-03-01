@@ -5,6 +5,9 @@ runs:
   steps:
     - run: |
         git init
+        if git remote | grep origin; then
+          git remote remove origin
+        fi
         git remote add origin https://github.com/${{ github.repository }}
         git fetch origin
         git reset --hard origin/${{ github.ref_name }}
