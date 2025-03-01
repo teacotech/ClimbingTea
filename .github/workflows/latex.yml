@@ -24,6 +24,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
         # Ini akan menginstal TeX Live, distribusi LaTeX yang dibutuhkan untuk kompilasi
+      - name: Ensure docs directory exists
+        run: mkdir -p docs && chmod 777 docs
 
       - name: Compile LaTeX file to PDF
         run: pdflatex -interaction=nonstopmode -output-directory=docs main.tex  # Sesuaikan dengan nama file LaTeX utama Anda
