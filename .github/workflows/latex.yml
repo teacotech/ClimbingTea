@@ -60,7 +60,6 @@ jobs:
 
       - name: Check if PDF changed
         run:  |
-          git pull origin main --rebase
           if ! git diff --quiet docs/main.pdf; then
             git add docs/main.pdf
             git commit -s -m "Compiled PDF [Update]"
