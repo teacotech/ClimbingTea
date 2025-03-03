@@ -32,7 +32,7 @@ jobs:
         run: scripts/texlive.sh $HOME/texlive main
 
       - name: Verify we have our cached file
-        run: ls cache-folder
+        run: ls $HOME/texlive
         
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4.6.1  # Upload PDF hasil kompilasi
