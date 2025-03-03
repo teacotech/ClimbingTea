@@ -30,9 +30,6 @@ jobs:
 
       - name: Use Cached TeX Live
         run: scripts/texlive.sh $HOME/texlive main
-
-      - name: Verify we have our cached file
-        run: ls $HOME/texlive
         
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4.6.1  # Upload PDF hasil kompilasi
@@ -47,7 +44,7 @@ jobs:
 
       - name: Check if PDF changed
         run:  |
-          if [ -n "$(git status --porcelain docs/main.pdf)" ]; then
+          if ! git --git-dir="docs/main.pdf" diff --quiet; then
             git add docs/main.pdf
             git commit -s -m "Compiled PDF [Update]"
             git push origin pdf-updates
