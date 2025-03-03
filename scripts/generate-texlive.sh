@@ -44,7 +44,8 @@ option_src 0
 EOF
 
 # Instalasi TeX Live menggunakan profil
-./install-tl --profile=texlive.profile --no-interaction
+export TEXLIVE_INSTALL_PREFIX="$CACHE_DIR"
+./install-tl --profile=texlive.profile --no-interaction --texdir="$CACHE_DIR"
 
 # Cleanup file instalasi
 cd ..
