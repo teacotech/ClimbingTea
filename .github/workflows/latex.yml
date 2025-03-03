@@ -44,7 +44,7 @@ jobs:
 
       - name: Check if PDF changed
         run:  |
-          if ! git --git-dir="docs/main.pdf" diff --quiet; then
+          if ! git diff --quiet docs/main.pdf; then
             git add docs/main.pdf
             git commit -s -m "Compiled PDF [Update]"
             git push origin pdf-updates
