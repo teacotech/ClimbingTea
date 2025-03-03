@@ -1,11 +1,6 @@
-name: Compile LaTeX Document
+name: Kompilasi Dokumen LaTeX
 
-on:
-  push:
-    paths:
-      - '**.tex'
-  workflow_dispatch:
-  pull_request:
+on: [push, pull_request]
     branches:
       - main   # Menjalankan workflow jika ada PR ke main
 
