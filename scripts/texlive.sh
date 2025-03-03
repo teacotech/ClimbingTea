@@ -46,11 +46,11 @@ fi
 # Kompilasi dokumen LaTeX
 echo "📄 Memulai kompilasi $TEX_FILE.tex..."
 pdflatex -interaction=nonstopmode -output-directory=docs "$TEX_FILE.tex"
-if [ -f "docs/$TEX_FILE.aux" ]; then
-  bibtex "docs/$TEX_FILE"
-  for _ in {1..2}; do
-    pdflatex -interaction=nonstopmode -output-directory=docs "$TEX_FILE.tex"
-  done
-fi
+#if [ -f "docs/$TEX_FILE.aux" ]; then
+#  bibtex "docs/$TEX_FILE"
+#  for _ in {1..2}; do
+#    pdflatex -interaction=nonstopmode -output-directory=docs "$TEX_FILE.tex"
+#  done
+#fi
 
 echo "✅ Kompilasi selesai. Hasil tersedia di docs/$TEX_FILE.pdf"
