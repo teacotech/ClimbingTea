@@ -44,9 +44,6 @@ export TEXLIVE_INSTALL_PREFIX="$CACHE_DIR"
 # Penambahan PATH TeX Live ke dalam environment sebelum menjalankan tlmgr
 export PATH="$CACHE_DIR/bin/$(uname -m)-linux:$PATH"
 
-# Install paket tambahan yang diperlukan
-tlmgr install latex-bin bibtex extra-tools
-
 # Cleanup file instalasi
 cd ..
 rm -rf install-tl-*
