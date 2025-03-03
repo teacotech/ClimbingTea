@@ -5,11 +5,9 @@ on:
     paths:
       - '**.tex'
   workflow_dispatch:
-    branches:
-      - main   # Anda bisa memilih cabang lain jika diperlukan
   pull_request:
     branches:
-      - main   # Akan memicu kompilasi saat ada pull request
+      - main   # Menjalankan workflow jika ada PR ke main
 
 jobs:
   compile:
@@ -18,48 +16,49 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
-
-      - name: Checkout repository (Local)
-        uses: ./.github/actions/checkout  # Memastikan kode repositori di-checkout ke dalam runner
+        with:
+          fetch-depth: 0 # Pastikan riwayat lengkap untuk perbandingan Git
       
       - name: Cache TeX Live
         id: cache-texlive
         uses: actions/cache@v4.2.2
         with:
-          path: docs/texlive-cache
-          key: ${{ runner.os }}-texlive
+          path: /opt/texlive
+          key: ${{ runner.os }}-texlive-2024
           restore-keys: |
             ${{ runner.os }}-texlive-
 
-      - name: Use or Generate the texlive-cache
-        if: ${{ steps.cache-texlive.outputs.cache-hit != 'true' }}
-        run: /generate-texlive.sh -d texlive-cache
+      - name: Make Scripts Executable
+        run: chmod +x scripts/generate-texlive.sh scripts/texlive.sh
 
-      - name: Use texlive
-        run: /texlive.sh -d texlive-cache
+      - name: Install TeX Live (if not cached)
+        if: steps.cache-texlive.outputs.cache-hit != 'true'
+        run: scripts/generate-texlive.sh -d /opt/texlive
+
+      - name: Use Cached TeX Live
+        run: scripts/texlive.sh -d /opt/texlive
 
       - name: Verify we have our cached file
         run: ls cache-folder
 
-      - name: Set up TeX Live
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
-        # Ini akan menginstal TeX Live, distribusi LaTeX yang dibutuhkan untuk kompilasi
-      - name: Ensure docs directory exists
-        run: mkdir -p docs && chmod 777 docs
-
       - name: Compile LaTeX file to PDF
-        run: pdflatex -interaction=nonstopmode -output-directory=docs main.tex  # Sesuaikan dengan nama file LaTeX utama Anda
-        
-      - name: List files
-        run: ls -l  # Akan menampilkan file yang ada di dalam direktori
-      
-      - name: Create docs directory
-        run: mkdir -p docs
+        run: |
+          pdflatex -interaction=nonstopmode -output-directory=docs main.tex
+          bibtex docs/main
+          pdflatex -interaction=nonstopmode -output-directory=docs main.tex # Proses Bib
+          pdflatex -interaction=nonstopmode -output-directory=docs main.tex # Cross-check
+
+      - name: Create docs directory if not exists
+        run: |
+          if [ ! -d "docs" ]; then
+            mkdir -p docs
+            echo "Created docs directory."
+          else
+            echo "Docs directory already exists. Skipping."
+          fi
         
       - name: Upload PDF artifact
-        uses: ./.github/actions/upload-artifact  # Upload PDF hasil kompilasi
+        uses: actions/upload-artifact@v4.6.1  # Upload PDF hasil kompilasi
         with:
           name: output-pdf  # Nama untuk file yang di-upload
           path: docs/main.pdf    # Sesuaikan dengan nama file PDF hasil kompilasi Anda
@@ -71,8 +70,10 @@ jobs:
 
       - name: Check if PDF changed
         run:  |
-          if ! git diff --quiet docs/main.pdf; then
+          if [ -n "$(git status --porcelain docs/main.pdf)" ]; then
             git add docs/main.pdf
             git commit -s -m "Compiled PDF [Update]"
-            git push origin main
+            git push origin pdf-updates
+          else
+            echo "No changes in PDF. Skipping push."
           fi
