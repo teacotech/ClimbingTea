@@ -10,6 +10,10 @@ if [ -z "$CACHE_DIR" ] || [ -z "$TEX_FILE" ]; then
   exit 1
 fi
 
+
+echo "🔧 Menambahkan TeX Live ke PATH..."
+export PATH="$CACHE_DIR/bin/x86_64-linux:$PATH"
+
 # Periksa apakah TeX Live Tersedia
 if [ ! -d "$CACHE_DIR/bin/x86_64-linux" ]; then
   echo "❌ TeX Live tidak ditemukan! Pastikan sudah diinstal."
@@ -21,9 +25,6 @@ if ! command -v pdflatex &>/dev/null || ! command -v bibtex &>/dev/null; then
   echo "❌ Error: pdflatex atau bibtex tidak ditemukan! Pastikan TeX Live telah diinstal dan tersedia di PATH."
   exit 1
 fi
-
-echo "🔧 Menambahkan TeX Live ke PATH..."
-export PATH="$CACHE_DIR/bin/x86_64-linux:$PATH"
 
 # Pastikan direktori output ada
 DOCS_DIR="docs"
