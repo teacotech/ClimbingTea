@@ -36,7 +36,7 @@ jobs:
         run: scripts/generate-texlive.sh $HOME/texlive
 
       - name: Use Cached TeX Live
-        run: scripts/texlive.sh $HOME/texlive
+        run: scripts/texlive.sh $HOME/texlive main
 
       - name: Verify we have our cached file
         run: ls cache-folder
