@@ -45,13 +45,18 @@ jobs:
       
       - name: Ensure pdf-updates branch exists
         run: |
-          if ! git show-ref --verify --quiet refs/heads/pdf-updates; then
-            git branch pdf-updates
+          if git ls-remote --exit-code --heads origin pdf-updates; then
+            echo "📂 Branch 'pdf-updates' ditemukan di remote."
+            git fetch origin pdf-updates
             git checkout pdf-updates
-            git push --set-upstream origin pdf-updates
           else
-            git checkout pdf-updates
+            echo "⚠️ Branch 'pdf-updates' tidak ditemukan, membuat branch baru..."
+            git checkout -b pdf-updates
+            git push --set-upstream origin pdf-updates
           fi
+          
+          # Pastikan branch up-to-date sebelum push
+          git pull --rebase origin pdf-updates
 
       - name: Check if PDF changed
         run:  |
