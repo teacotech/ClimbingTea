@@ -9,12 +9,6 @@ if [ -z "$CACHE_DIR" ]; then
   exit 1
 fi
 
-# Periksa apakah wget tersedia
-if ! command -v wget &>/dev/null; then
-  echo "❌ Error: wget tidak ditemukan! Instal wget terlebih dahulu."
-  exit 1
-fi
-
 # Periksa apakah direktori cache ada, jika tidak buat
 if [ ! -d "$CACHE_DIR" ]; then
   mkdir -p "$CACHE_DIR"
@@ -46,6 +40,12 @@ EOF
 # Instalasi TeX Live menggunakan profil
 export TEXLIVE_INSTALL_PREFIX="$CACHE_DIR"
 ./install-tl --profile=texlive.profile --no-interaction --texdir="$CACHE_DIR"
+
+# Penambahan PATH TeX Live ke dalam environment sebelum menjalankan tlmgr
+export PATH="$CACHE_DIR/bin/$(uname -m)-linux:$PATH"
+
+# Install paket tambahan yang diperlukan
+tlmgr install latex-bin bibtex extra-tools
 
 # Cleanup file instalasi
 cd ..
