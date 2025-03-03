@@ -44,7 +44,7 @@ option_src 0
 EOF
 
 # Instalasi TeX Live menggunakan profil
-./install-tl --profile=texlive.profile --no-interaction --persistent-downloads
+./install-tl --profile=texlive.profile --no-interaction
 
 # Cleanup file instalasi
 cd ..
