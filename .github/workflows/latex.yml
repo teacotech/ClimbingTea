@@ -33,29 +33,13 @@ jobs:
 
       - name: Install TeX Live (if not cached)
         if: steps.cache-texlive.outputs.cache-hit != 'true'
-        run: scripts/generate-texlive.sh -d /opt/texlive
+        run: scripts/generate-texlive.sh /opt/texlive
 
       - name: Use Cached TeX Live
-        run: scripts/texlive.sh -d /opt/texlive
+        run: scripts/texlive.sh /opt/texlive
 
       - name: Verify we have our cached file
         run: ls cache-folder
-
-      - name: Compile LaTeX file to PDF
-        run: |
-          pdflatex -interaction=nonstopmode -output-directory=docs main.tex
-          bibtex docs/main
-          pdflatex -interaction=nonstopmode -output-directory=docs main.tex # Proses Bib
-          pdflatex -interaction=nonstopmode -output-directory=docs main.tex # Cross-check
-
-      - name: Create docs directory if not exists
-        run: |
-          if [ ! -d "docs" ]; then
-            mkdir -p docs
-            echo "Created docs directory."
-          else
-            echo "Docs directory already exists. Skipping."
-          fi
         
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4.6.1  # Upload PDF hasil kompilasi
