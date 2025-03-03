@@ -33,10 +33,10 @@ jobs:
 
       - name: Use or Generate the texlive-cache
         if: ${{ steps.cache-texlive.outputs.cache-hit != 'true' }}
-        run: docs/generate-texlive.sh -d texlive-cache
+        run: /generate-texlive.sh -d texlive-cache
 
       - name: Use texlive
-        run: docs/texlive.sh -d docs/texlive-cache
+        run: /texlive.sh -d texlive-cache
 
       - name: Verify we have our cached file
         run: ls cache-folder
