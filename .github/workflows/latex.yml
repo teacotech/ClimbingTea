@@ -53,6 +53,17 @@ jobs:
             echo "⚠️ Branch 'pdf-updates' tidak ditemukan, membuat branch baru..."
             git checkout -b pdf-updates
             git push --set-upstream origin pdf-updates
+          fi  
+          # Pastikan kita berada di branch pdf-updates
+          git checkout pdf-updates
+
+          # Periksa apakah ada perubahan yang belum dikomit
+          if ! git diff --quiet || ! git diff --cached --quiet; then
+            echo "Terdapat perubahan yang belum dikomit, menyimpan perubahan..."
+            git add docs/main.pdf scripts/generate-texlive.sh
+            git commit -m "Auto-commit: Save local changes before switching branches"
+          else
+            echo "Tidak ada perubahan yang perlu dikomit."
           fi
           
           # Pastikan branch up-to-date sebelum push
