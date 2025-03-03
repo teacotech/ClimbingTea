@@ -1,8 +1,6 @@
 name: Kompilasi Dokumen LaTeX
 
 on: [push, pull_request]
-    branches:
-      - main   # Menjalankan workflow jika ada PR ke main
 
 jobs:
   compile:
