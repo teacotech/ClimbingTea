@@ -50,7 +50,6 @@ jobs:
             git fetch origin pdf-updates
             git add docs/main.pdf scripts/generate-texlive.sh
             git commit -m "Auto-commit for the branch"
-            git pull --rebase origin pdf-updates
           else
             echo "⚠️ Branch 'pdf-updates' tidak ditemukan, membuat branch baru..."
             git checkout -b pdf-updates
