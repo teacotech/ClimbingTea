@@ -16,11 +16,24 @@ jobs:
         id: cache-texlive
         uses: actions/cache@v4.2.2
         with:
-          path: $HOME/texlive
           key: ${{ runner.os }}-texlive-2024
           restore-keys: |
             ${{ runner.os }}-texlive-
-          save-always: true
+          path: $HOME/texlive
+
+      - name: Restore Cache TeX Live
+        id: cache-texlive-restore
+        uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-texlive-2024
+          path: $HOME/texlive
+
+      - name: Always save Cache of TeX Live
+        id: cache-texlive-save
+        uses: actions/cache/save@v4
+        with:
+          key: ${{ steps.cache-texlive-restore.outputs.cache-primary-key }}
+          path: $HOME/texlive
 
       - name: Make Scripts Executable
         run: chmod +x scripts/generate-texlive.sh scripts/texlive.sh
