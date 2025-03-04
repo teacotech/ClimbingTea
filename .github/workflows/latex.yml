@@ -48,15 +48,12 @@ jobs:
           if git ls-remote --exit-code --heads origin pdf-updates; then
             echo "📂 Branch 'pdf-updates' ditemukan di remote."
             git fetch origin pdf-updates
-            git checkout pdf-updates
             git add docs/main.pdf scripts/generate-texlive.sh
             git commit -m "Auto-commit for the branch"
           else
             echo "⚠️ Branch 'pdf-updates' tidak ditemukan, membuat branch baru..."
             git checkout -b pdf-updates
             git push --set-upstream origin pdf-updates
-            git add docs/main.pdf scripts/generate-texlive.sh
-            git commit -m "Auto-commit for the branch"
           fi  
           # Pastikan kita berada di branch pdf-updates
           git checkout pdf-updates
