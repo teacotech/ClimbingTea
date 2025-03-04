@@ -20,6 +20,7 @@ jobs:
           key: ${{ runner.os }}-texlive-2024
           restore-keys: |
             ${{ runner.os }}-texlive-
+          save-always: true
 
       - name: Make Scripts Executable
         run: chmod +x scripts/generate-texlive.sh scripts/texlive.sh
