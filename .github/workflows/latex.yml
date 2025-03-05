@@ -50,28 +50,3 @@ jobs:
         with:
           name: output-pdf  # Nama untuk file yang di-upload
           path: docs/main.pdf    # Sesuaikan dengan nama file PDF hasil kompilasi Anda
-      
-      - name: Configure Git User
-        run:  |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-      
-      - name: Ensure pdf-updates branch exists
-        run: |
-          if ! git show-ref --verify --quiet refs/heads/pdf-updates; then
-            git branch pdf-updates
-            git checkout pdf-updates
-            git push --set-upstream origin pdf-updates
-          else
-            git checkout pdf-updates
-          fi
-
-      - name: Check if PDF changed
-        run:  |
-          if ! git diff --quiet docs/main.pdf; then
-            git add docs/main.pdf
-            git commit -s -m "Compiled PDF [Update]"
-            git push origin pdf-updates
-          else
-            echo "No changes in PDF. Skipping push."
-          fi
