@@ -12,7 +12,7 @@ fi
 # Periksa apakah direktori cache ada, jika tidak buat
 if [ ! -d "$CACHE_DIR" ]; then
   mkdir -p "$CACHE_DIR"
-  chmod 755 "$CACHE_DIR" # Pastikan memiliki izin akses
+  chmod +x "$CACHE_DIR" # Pastikan memiliki izin akses
   echo "✅ Direktori cache $CACHE_DIR telah dibuat."
 fi
 
